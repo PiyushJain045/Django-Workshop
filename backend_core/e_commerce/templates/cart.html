@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - E-Commerce</title>
-    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="{% static 'cart.css' %}">
 </head>
 
 <body>
@@ -14,11 +16,11 @@
             <div class="nav-container">
                 <div class="logo">
                     <a href="home.html">
-                        <img src="./assets/aperture.svg" alt="E-Commerce Logo">
+                        <img src="{% static 'aperture.svg' %}" alt="E-Commerce Logo">
                     </a>
                 </div>
                 <ul>
-                    <li><a href="home.html">Home</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="cart.html" class="active">Cart</a></li>
                     <li><a href="checkout.html">Checkout</a></li>
                 </ul>
@@ -42,47 +44,37 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        
                         <!-- Cart Item 1 -->
+                        {% for item in cart_items %}
                         <tr class="cart-item">
                             <td class="product-info">
-                                <img src="./assets/headphones.jpg" alt="Wireless Headphones">
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                 <div>
-                                    <h3>Wireless Headphones</h3>
-                                    <p>Premium noise-cancelling</p>
+                                    <h3>{{ item.product.name }}</h3>
+                                    <p>{{ item.product.description|truncatewords:5 }}</p>
                                 </div>
                             </td>
-                            <td class="price">₹8,299</td>
+                            <td class="price">₹{{ item.product.price }}</td>
                             <td class="quantity">
                                 <button class="quantity-btn decrease">-</button>
-                                <input type="number" value="1" min="1" max="10">
+                                <input type="number" value="{{ item.quantity }}" min="1" max="10">
                                 <button class="quantity-btn increase">+</button>
                             </td>
-                            <td class="total">₹8,299</td>
+                            <td class="total">₹₹{{ item.total_price }}</td>
                             <td class="actions">
                                 <button class="remove-btn">Remove</button>
                             </td>
                         </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Your cart is empty 🛒</td>
+                        </tr>
+                        {% endfor %}
 
                         <!-- Cart Item 2 -->
-                        <tr class="cart-item">
-                            <td class="product-info">
-                                <img src="./assets/speakers.jpg" alt="Portable Speaker">
-                                <div>
-                                    <h3>Portable Speaker</h3>
-                                    <p>Waterproof Bluetooth speaker</p>
-                                </div>
-                            </td>
-                            <td class="price">₹6,650</td>
-                            <td class="quantity">
-                                <button class="quantity-btn decrease">-</button>
-                                <input type="number" value="1" min="1" max="10">
-                                <button class="quantity-btn increase">+</button>
-                            </td>
-                            <td class="total">₹6,650</td>
-                            <td class="actions">
-                                <button class="remove-btn">Remove</button>
-                            </td>
-                        </tr>
+
                     </tbody>
                 </table>
 
