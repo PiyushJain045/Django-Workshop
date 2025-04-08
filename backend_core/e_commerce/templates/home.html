@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="home.html">
+                        <img src="{% static 'aperture.svg' %}" alt="E-Commerce Logo">
+                    </a>
+                </div>
+                <ul>
+                    <li><a href="home.html" class="active">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="checkout.html">Checkout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="products-section">
+            <h1>Featured Products</h1>
+            <div class="products-container">
+
+                <!-- Product Card 1 -->
+                {% for product in products %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <p class="product-price">{{ product.price }}</p>
+                        <p class="product-description">{{ product.description }}</p>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+                {% endfor %}
+                
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 E-Commerce. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
